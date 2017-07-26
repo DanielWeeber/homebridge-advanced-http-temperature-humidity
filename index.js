@@ -107,11 +107,11 @@ AdvancedHttpTemperatureHumidity.prototype = {
         }
 
         return services;
-    }
+    },
     initServices: function() {
 		this.log.debug("Entered TEMPERATURE-initServices()");
     this._checkStates(true);
-}
+},
     _checkStates: function(initial) {
 		this.log.debug("Entered TEMPERATURE-_checkStates(initial: %s)", (initial || false));
         var that = this;
