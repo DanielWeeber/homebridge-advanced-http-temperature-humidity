@@ -53,7 +53,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
     },
 
     getState: function (callback) {
-        this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
+        setTimeout(this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
                 this.log('Get Temperature failed: %s', error.message);
@@ -73,7 +73,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
 
                 callback(null, temperature);
             }
-        }.bind(this));
+        }.bind(this));,10000);
     },
 
     identify: function (callback) {
@@ -107,15 +107,5 @@ AdvancedHttpTemperatureHumidity.prototype = {
         }
 
         return services;
-    },
-    initServices: function() {
-		this.log.debug("Entered TEMPERATURE-initServices()");
-    this._checkStates(true);
-},
-    _checkStates: function(initial) {
-		this.log.debug("Entered TEMPERATURE-_checkStates(initial: %s)", (initial || false));
-        var that = this;
-   
-        setTimeout(that.getState.bind(that), 4000);
     }
 };
