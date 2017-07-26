@@ -26,7 +26,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
     this.disableHumidity = config["humidity"] || false;
     
-    this.initServices();
+    
 }
 
 AdvancedHttpTemperatureHumidity.prototype = {
