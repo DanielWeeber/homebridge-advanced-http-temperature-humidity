@@ -73,7 +73,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
 
                 callback(null, temperature);
             }
-        }.bind(this));,10000);
+        }.bind(this)),10000);
     },
 
     identify: function (callback) {
