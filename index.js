@@ -26,7 +26,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
     this.disableHumidity = config["humidity"] || false;
     
-    
+    setTimeout(this.getState(),10000);
 }
 
 AdvancedHttpTemperatureHumidity.prototype = {
@@ -53,7 +53,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
     },
 
     getState: function (callback) {
-        setTimeout(this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
+        this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
                 this.log('Get Temperature failed: %s', error.message);
@@ -73,7 +73,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
 
                 callback(null, temperature);
             }
-        }.bind(this)),10000);
+        }.bind(this));
     },
 
     identify: function (callback) {
