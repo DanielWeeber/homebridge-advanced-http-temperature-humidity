@@ -83,7 +83,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     
      statusemitter.on("statuspoll", function (responseBody) {
       
-         this.log("Enteres statuspoll");
+         that.log("Enteres statuspoll");
          
          
          
