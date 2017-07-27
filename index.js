@@ -46,26 +46,49 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 that.log('Get Temperature failed: %s', error.message);
                 callback(error);
             } else {
-                that.log('Get Temperature succeeded!');
+                that.log('Get JSON in Auto-Update succeeded!');
                 var info = JSON.parse(responseBody);
-                var temperature = parseFloat(info.temperature);
-                that.log(temperature);
+                //var temperature = parseFloat(info.temperature);
+                //that.log(temperature);
                 //that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
                 
-                that.log('Temp auto update sent'); 
-                if (this.humidityService !== false) {
-                    var humidity = parseFloat(info.humidity);
-                    that.log(humidity);
+                //that.log('Temp auto update sent'); 
+                //if (this.humidityService !== false) {
+                //    var humidity = parseFloat(info.humidity);
+                //    that.log(humidity);
                     //that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-                    that.log('Hum auto update sent'); 
-                    that.humidity = humidity;
+                //    that.log('Hum auto update sent'); 
+                //    that.humidity = humidity;
                 }
 
-                callback(null, temperature);
+                callback(null, info);
                 }
         });
     
         }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
+    
+    
+        function compareStates(customStatus, stateData) {
+            var objectsEqual = true;
+            for (var param in customStatus) {
+                if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) {
+                    objectsEqual = false;
+                    break;
+                }
+            }
+            // that.log("Equal", objectsEqual);
+            return objectsEqual;
+        }
+    
+     statusemitter.on("statuspoll", function (responseBody) {
+      
+         this.log("Enteres statuspoll");
+         
+         
+         
+     }
+    
+    
         
     
 }
