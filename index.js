@@ -130,6 +130,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
     },
 
     getState: function (callback) {
+        this.log("Entered manual Update");
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
