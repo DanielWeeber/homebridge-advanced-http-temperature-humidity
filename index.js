@@ -177,7 +177,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             .on('get', function (callback) {
                 callback(null, that.state)
              });
-        services.push(temperatureService);
+        services.push(this.temperatureService);
 
 
             this.humidityService = new Service.HumiditySensor(this.name);
