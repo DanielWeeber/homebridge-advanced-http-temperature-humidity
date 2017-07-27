@@ -14,7 +14,6 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
     // Config
     this.url = config["url"];
-    this.batteryurl = config["batteryurl"];
     this.http_method = config["http_method"] || "GET";
     this.sendimmediately = config["sendimmediately"] || false;
     this.username = config["username"] || "";
@@ -167,28 +166,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
         }.bind(this));
     },
     
-        getStateBattery: function (callback) {
-        this.log("Entered manual Battery-Update");
-        this.httpRequest(this.batteryurl, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
-
-            if (error) {
-                this.log('Get Battery failed: %s', error.message);
-                callback(error);
-            } else {
-                this.log('Get Battery succeeded!');
-                var info = JSON.parse(responseBody);
-                this.log(info);
-                    var batterycharge = parseFloat(50);
-
-                    this.batteryService.setCharacteristic(Characteristic.CurrentRelativeHumidity, batterycharge);
-                    this.batterycharge = batterycharge;
-                
-
-                callback(null, humidity);
-            }
-        }.bind(this));
-    },
-
+  
     identify: function (callback) {
         this.log("Identify requested!");
         callback(); // success
@@ -219,13 +197,6 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 .on('get', this.getStateHumidity.bind(this));
             services.push(this.humidityService);
             
-            this.batteryService = new Service.BatteryService(this.name);
-            this.batteryService
-                .getCharacteristic(Characteristic.BatteryLevel)
-                .setProps({minValue: 0, maxValue: 100})
-                .on('get', this.getStateBattery.bind(this));
-            services.push(this.batteryService);
-
 
         return services;
     }
