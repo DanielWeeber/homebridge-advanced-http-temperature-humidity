@@ -87,7 +87,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
          
          
          
-     }
+     });
     
     
         
