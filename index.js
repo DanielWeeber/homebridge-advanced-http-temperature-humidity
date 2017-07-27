@@ -49,13 +49,14 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 that.log('Get Temperature succeeded!');
                 var info = JSON.parse(responseBody);
                 var temperature = parseFloat(info.temperature);
-                that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+                that.log(temperature);
+                //that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
                 
                 that.log('Temp auto update sent'); 
                 if (this.humidityService !== false) {
                     var humidity = parseFloat(info.humidity);
-
-                    that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                    that.log(humidity);
+                    //that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     that.log('Hum auto update sent'); 
                     that.humidity = humidity;
                 }
