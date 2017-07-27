@@ -47,7 +47,8 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 callback(error);
             } else {
                 that.log('Get JSON in Auto-Update succeeded!');
-                var info = JSON.parse(responseBody);
+                that.log(responseBody);
+                //var info = JSON.parse(responseBody);
                 //var temperature = parseFloat(info.temperature);
                 //that.log(temperature);
                 //that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
@@ -59,9 +60,9 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                     //that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                 //    that.log('Hum auto update sent'); 
                 //    that.humidity = humidity;
-                }
+                //}
 
-                callback(null, info);
+                callback(null, responseBody);
                 }
         });
     
