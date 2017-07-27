@@ -65,13 +65,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 callback(null, temperature);
                 }
         })
-            
-        }.bind(this));
-            
-            
-
-            
-            
+    
         }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
     
     
