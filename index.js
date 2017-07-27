@@ -177,8 +177,8 @@ AdvancedHttpTemperatureHumidity.prototype = {
             } else {
                 this.log('Get Battery succeeded!');
                 var info = JSON.parse(responseBody);
-
-                    var batterycharge = parseFloat(info.battery.charge);
+this.log(info);
+                    var batterycharge = parseFloat("50");
 
                     this.batteryService.setCharacteristic(Characteristic.CurrentRelativeHumidity, batterycharge);
                     this.batterycharge = batterycharge;
