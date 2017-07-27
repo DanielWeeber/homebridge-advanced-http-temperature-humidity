@@ -88,11 +88,11 @@ function AdvancedHttpTemperatureHumidity(log, config) {
          
          var info = JSON.parse(responseBody);
          var temperature = parseFloat(info.temperature);
-         this.temperature = temperature;
-         this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+         that.temperature = temperature;
+         that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
          var humidity = parseFloat(info.humidity);
-         this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-         this.humidity = humidity;
+         that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+         that.humidity = humidity;
                 
          
          
