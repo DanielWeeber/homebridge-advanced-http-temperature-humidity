@@ -38,8 +38,8 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     
 
 
-            var statusemitter = pollingtoevent(function (done) {
-        this.log('Entered Polling-to-Event-Function');    
+        var statusemitter = pollingtoevent(function (done) {
+        that.log('Entered Polling-to-Event-Function');    
         that.httpRequest(that.url, "", "GET", that.username, that.password, that.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
@@ -49,14 +49,14 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 that.log('Get Temperature succeeded!');
                 var info = JSON.parse(responseBody);
                 var temperature = parseFloat(info.temperature);
-                this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+                that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
                 
-                this.log('Temp auto update sent'); 
+                that.log('Temp auto update sent'); 
                 if (this.humidityService !== false) {
                     var humidity = parseFloat(info.humidity);
 
                     that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-                    this.log('Hum auto update sent'); 
+                    that.log('Hum auto update sent'); 
                     that.humidity = humidity;
                 }
 
