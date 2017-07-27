@@ -47,15 +47,12 @@ function AdvancedHttpTemperatureHumidity(log, config) {
             } else {
                 that.log('Get Temperature succeeded!');
                 var info = JSON.parse(responseBody);
-
                 var temperature = parseFloat(info.temperature);
-                
                 this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
-               // this.temperature = temperature;
                 
                 this.log('Temp auto update sent'); 
                 if (this.humidityService !== false) {
-                    var humidity = parseFloat(info.humidity)
+                    var humidity = parseFloat(info.humidity);
 
                     that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.log('Hum auto update sent'); 
@@ -64,7 +61,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
                 callback(null, temperature);
                 }
-        })
+        });
     
         }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
     
@@ -86,7 +83,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 }
             },
             function (error, response, body) {
-                callback(error, response, body)
+                callback(error, response, body);
             })
     },
 
@@ -108,7 +105,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
 
                 if (this.humidityService !== false) {
-                    var humidity = parseFloat(info.humidity)
+                    var humidity = parseFloat(info.humidity);
 
                     this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.humidity = humidity;
