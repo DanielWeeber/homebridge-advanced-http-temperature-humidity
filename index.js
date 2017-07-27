@@ -33,21 +33,21 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     this.state = false;
     this.currentlevel = 0;
     this.enableSet = true;
-    var that = this;
+    //var that = this;
     
     
 
 
         var statusemitter = pollingtoevent(function (callback) {
-        that.log('Entered Polling-to-Event-Function');    
-        that.httpRequest(that.url, "", "GET", that.username, that.password, that.sendimmediately, function (error, response, responseBody) {
+        this.log('Entered Polling-to-Event-Function');    
+        this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
-                that.log('Get Temperature failed: %s', error.message);
+                this.log('Get Temperature failed: %s', error.message);
                 callback(error);
             } else {
-                that.log('Get JSON in Auto-Update succeeded!');
-                that.log(responseBody);
+                this.log('Get JSON in Auto-Update succeeded!');
+                this.log(responseBody);
                 //var info = JSON.parse(responseBody);
                 //var temperature = parseFloat(info.temperature);
                 //that.log(temperature);
@@ -66,7 +66,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 }
         });
     
-        }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
+        }, { longpolling: true, interval: 4000, longpollEventName: "statuspoll" });
     
     
         function compareStates(customStatus, stateData) {
@@ -83,8 +83,16 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     
      statusemitter.on("statuspoll", function (responseBody) {
       
-         that.log("Enteres statuspoll");
+         that.log("Change of data detected! Sending new data to HomeKit.");
          
+         var info = JSON.parse(responseBody);
+         var temperature = parseFloat(info.temperature);
+         this.temperature = temperature;
+         this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+         var humidity = parseFloat(info.humidity);
+         this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+         this.humidity = humidity;
+                
          
          
      });
@@ -128,6 +136,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 var info = JSON.parse(responseBody);
 
                 var temperature = parseFloat(info.temperature);
+                this.temperature = temperature;
                 this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
 
                 if (this.humidityService !== false) {
