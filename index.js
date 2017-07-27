@@ -174,9 +174,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
         this.temperatureService = new Service.TemperatureSensor(this.name);
         this.temperatureService
             .getCharacteristic(Characteristic.CurrentTemperature)
-            .on('get', function (callback) {
-                callback(null, this.state)
-             });
+            .on('get', this.getState.bind(this));
         services.push(this.temperatureService);
 
 
@@ -184,9 +182,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', function (callback) {
-                callback(null, this.state)
-             });
+                .on('get', this.getState.bind(this));
             services.push(this.humidityService);
 
 
