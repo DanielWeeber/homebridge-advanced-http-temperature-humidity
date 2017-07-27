@@ -63,7 +63,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 }
 
                 callback(null, temperature);
-            }
+            
         }.bind(this));
             
             
