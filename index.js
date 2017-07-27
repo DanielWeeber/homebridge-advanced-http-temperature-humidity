@@ -1,6 +1,6 @@
 var Service, Characteristic;
 var request = require('request');
-var pollingtoevent = require("polling-to-event2");
+var pollingtoevent = require("polling-to-event");
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
@@ -122,15 +122,8 @@ AdvancedHttpTemperatureHumidity.prototype = {
             })
     },
 
-    getStateHumidity: function (callback) {
-        callback(null, this.humidity);
-    },
     getStateTemperature: function (callback) {
-        callback(null, this.temperature);
-    },
-
-    getState: function (callback) {
-        this.log("Entered manual Update");
+        this.log("Entered manual Temp-Update");
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
@@ -144,14 +137,31 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 this.temperature = temperature;
                 this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
 
-                if (this.humidityService !== false) {
+                callback(null, temperature);
+            }
+        }.bind(this));
+    },
+    
+    
+
+    getStateHumidity: function (callback) {
+        this.log("Entered manual Hum-Update");
+        this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
+
+            if (error) {
+                this.log('Get Temperature failed: %s', error.message);
+                callback(error);
+            } else {
+                this.log('Get Temperature succeeded!');
+                var info = JSON.parse(responseBody);
+
                     var humidity = parseFloat(info.humidity);
 
                     this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.humidity = humidity;
-                }
+                
 
-                callback(null, temperature);
+                callback(null, humidity);
             }
         }.bind(this));
     },
@@ -175,7 +185,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
         this.temperatureService = new Service.TemperatureSensor(this.name);
         this.temperatureService
             .getCharacteristic(Characteristic.CurrentTemperature)
-            .on('get', this.getState.bind(this));
+            .on('get', this.getStateTemperature.bind(this));
         services.push(this.temperatureService);
 
 
@@ -183,7 +193,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', this.getState.bind(this));
+                .on('get', this.getStateHumidity.bind(this));
             services.push(this.humidityService);
 
 
