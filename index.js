@@ -125,6 +125,9 @@ AdvancedHttpTemperatureHumidity.prototype = {
     getStateHumidity: function (callback) {
         callback(null, this.humidity);
     },
+    getStateTemperature: function (callback) {
+        callback(null, this.temperature);
+    },
 
     getState: function (callback) {
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
@@ -167,20 +170,25 @@ AdvancedHttpTemperatureHumidity.prototype = {
             .setCharacteristic(Characteristic.SerialNumber, this.serial);
         services.push(informationService);
 
-        temperatureService = new Service.TemperatureSensor(this.name);
-        temperatureService
+        
+        this.temperatureService = new Service.TemperatureSensor(this.name);
+        this.temperatureService
             .getCharacteristic(Characteristic.CurrentTemperature)
-            .on('get', this.getState.bind(this));
+            .on('get', function (callback) {
+                callback(null, that.state)
+             });
         services.push(temperatureService);
 
-        if (this.disableHumidity !== true) {
+
             this.humidityService = new Service.HumiditySensor(this.name);
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', this.getStateHumidity.bind(this));
+                .on('get', function (callback) {
+                callback(null, that.state)
+             });
             services.push(this.humidityService);
-        }
+
 
         return services;
     }
