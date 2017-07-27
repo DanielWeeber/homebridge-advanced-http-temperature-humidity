@@ -38,7 +38,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     
 
 
-        var statusemitter = pollingtoevent(function (done) {
+        var statusemitter = pollingtoevent(function (callback) {
         that.log('Entered Polling-to-Event-Function');    
         that.httpRequest(that.url, "", "GET", that.username, that.password, that.sendimmediately, function (error, response, responseBody) {
 
