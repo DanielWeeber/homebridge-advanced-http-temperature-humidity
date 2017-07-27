@@ -39,15 +39,15 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
 
      var statusemitter = pollingtoevent(function (callback) {
-     that.log('Entered Polling-to-Event-Function');    
+     //that.log('Entered Polling-to-Event-Function');    
      that.httpRequest(that.url, "", "GET", that.username, that.password, that.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
                 that.log('Get Temperature failed: %s', error.message);
                 callback(error);
             } else {
-                that.log('Get JSON in Auto-Update succeeded!');
-                that.log(responseBody);
+                //that.log('Get JSON in Auto-Update succeeded!');
+                //that.log(responseBody);
                 //var info = JSON.parse(responseBody);
                 //var temperature = parseFloat(info.temperature);
                 //that.log(temperature);
@@ -66,7 +66,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 }
         });
     
-        }, { longpolling: true, interval: 4000, longpollEventName: "statuspoll" });
+        }, { longpolling: true, interval: 10000, longpollEventName: "statuspoll" });
     //statusemitter end
     
     
