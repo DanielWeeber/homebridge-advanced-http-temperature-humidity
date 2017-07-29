@@ -123,14 +123,14 @@ AdvancedHttpTemperatureHumidity.prototype = {
     },
 
     getStateTemperature: function (callback) {
-        this.log("Entered manual Temp-Update");
+        //this.log("Entered manual Temp-Update");
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
                 this.log('Get Temperature failed: %s', error.message);
                 callback(error);
             } else {
-                this.log('Get Temperature succeeded!');
+                this.log('Get Temperature manually succeeded!');
                 var info = JSON.parse(responseBody);
 
                 var temperature = parseFloat(info.temperature);
@@ -145,14 +145,14 @@ AdvancedHttpTemperatureHumidity.prototype = {
     
 
     getStateHumidity: function (callback) {
-        this.log("Entered manual Humidity-Update");
+        //this.log("Entered manual Humidity-Update");
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
                 this.log('Get Humidity failed: %s', error.message);
                 callback(error);
             } else {
-                this.log('Get Humidity succeeded!');
+                this.log('Get Humidity manually succeeded!');
                 var info = JSON.parse(responseBody);
 
                     var humidity = parseFloat(info.humidity);
