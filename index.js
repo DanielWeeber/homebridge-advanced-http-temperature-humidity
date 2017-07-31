@@ -44,7 +44,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
 
             if (error) {
                 that.log('Get Temperature failed: %s', error.message);
-                callback(error);
+                callback(null, error.message);
             } else {
                 //that.log('Get JSON in Auto-Update succeeded!');
                 //that.log(responseBody);
@@ -128,7 +128,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
 
             if (error) {
                 this.log('Get Temperature failed: %s', error.message);
-                callback(error);
+                callback(null, error.message);
             } else {
                 this.log('Get Temperature manually succeeded!');
                 var info = JSON.parse(responseBody);
@@ -150,7 +150,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
 
             if (error) {
                 this.log('Get Humidity failed: %s', error.message);
-                callback(error);
+                callback(null, error.message);
             } else {
                 this.log('Get Humidity manually succeeded!');
                 var info = JSON.parse(responseBody);
