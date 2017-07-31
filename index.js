@@ -134,8 +134,8 @@ AdvancedHttpTemperatureHumidity.prototype = {
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
-                this.log('Get Temperature failed: %s', error.message);
-                callback(error);
+                this.log('Get Temperature getStateTemperature failed: %s', error.message);
+                //callback(error);
                 //return;
             } else {
                 this.log('Get Temperature manually succeeded!');
@@ -159,7 +159,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
         this.httpRequest(this.url, "", "GET", this.username, this.password, this.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
-                this.log('Get Humidity failed: %s', error.message);
+                this.log('Get Humidity getStateHumidity failed: %s', error.message);
                 callback(error);
                 //return;
             } else {
