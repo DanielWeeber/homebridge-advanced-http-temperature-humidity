@@ -89,10 +89,10 @@ function AdvancedHttpTemperatureHumidity(log, config) {
          var info = JSON.parse(responseBody);
           that.log(info);
          var temperature = parseFloat(info.temperature);
-         if (temperature != 85.0 && temperature != 85.00 && temperature != -127.00) {
+         var humidity = parseFloat(info.humidity);
+         if (temperature != 85.0 && temperature != 85.00 && temperature != -127.00 && humidity != -127) {
          that.temperature = temperature;
          that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
-         var humidity = parseFloat(info.humidity);
          that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
          that.humidity = humidity;
          }
@@ -160,10 +160,10 @@ AdvancedHttpTemperatureHumidity.prototype = {
                 var info = JSON.parse(responseBody);
 
                     var humidity = parseFloat(info.humidity);
-
+                    if (humidity != -127) {
                     this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.humidity = humidity;
-                
+                    }
 
                 callback(null, humidity);
             }
