@@ -46,7 +46,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 that.log('Get Temperature failed: %s', error.message);
                 that.iserror = 1;
                 callback(error);
-                return;
+                
             } else {
                 //that.log('Get JSON in Auto-Update succeeded!');
                 //that.log(responseBody);
