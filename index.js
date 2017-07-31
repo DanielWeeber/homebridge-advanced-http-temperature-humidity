@@ -68,19 +68,19 @@ function AdvancedHttpTemperatureHumidity(log, config) {
         }
     
      statusemitter.on("statuspoll", function (responseBody) {
-         that.log('Entering statusemitter.on');
-         that.log("Change of data detected! Sending new data to HomeKit.");
-        
-        
+
          var info = JSON.parse(responseBody);
          var temperature = parseFloat(info.temperature);
          var humidity = parseFloat(info.humidity);
-          that.log("Values", that.temperature, temperature, that.humidity, humidity);
-         if (temperature != 85 && temperature != 85.0 && temperature != 85.00 && temperature != -127.00 && humidity != -127) {
-         that.temperature = temperature;
-         that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
-         that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-         that.humidity = humidity;
+          
+         if (that.temperature != temperature || that.humidity != humidity) {
+            if (temperature != 85 && temperature != 85.0 && temperature != 85.00 && temperature != -127.00 && humidity != -127) {
+                that.log("Change of data detected! Sending new data to HomeKit.");
+                that.temperature = temperature;
+                that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+                that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                that.humidity = humidity;
+            }
          }
 
          
