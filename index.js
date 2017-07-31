@@ -104,7 +104,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
          
      });
              
-         statusemitter.error("statuspoll", function (responseBody) {
+         statusemitter.on("error", function (responseBody) {
              that.log('Entering statusemitter.error');
              callback(error);
          }
