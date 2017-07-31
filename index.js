@@ -86,11 +86,8 @@ function AdvancedHttpTemperatureHumidity(log, config) {
         }
     
      statusemitter.on("statuspoll", function (responseBody) {
-         that.log('Entering statusemitter');
-         if (that.iserror == 1) {
-             that.iserror=0;
-         }
-         else {
+         that.log('Entering statusemitter.on');
+
          that.log("Change of data detected! Sending new data to HomeKit.");
         
          var info = JSON.parse(responseBody);
@@ -103,10 +100,15 @@ function AdvancedHttpTemperatureHumidity(log, config) {
          that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
          that.humidity = humidity;
          }
-         }
+
          
      });
-    
+             
+         statusemitter.error("statuspoll", function (responseBody) {
+             that.log('Entering statusemitter.error');
+             callback(error);
+         }
+         );
     
         
     
