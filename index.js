@@ -47,22 +47,6 @@ function AdvancedHttpTemperatureHumidity(log, config) {
                 callback(error);
                 
             } else {
-                //that.log('Get JSON in Auto-Update succeeded!');
-                //that.log(responseBody);
-                //var info = JSON.parse(responseBody);
-                //var temperature = parseFloat(info.temperature);
-                //that.log(temperature);
-                //that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
-                
-                //that.log('Temp auto update sent'); 
-                //if (this.humidityService !== false) {
-                //    var humidity = parseFloat(info.humidity);
-                //    that.log(humidity);
-                    //that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-                //    that.log('Hum auto update sent'); 
-                //    that.humidity = humidity;
-                //}
-
                 callback(null, responseBody);
                 }
         });
@@ -85,13 +69,13 @@ function AdvancedHttpTemperatureHumidity(log, config) {
     
      statusemitter.on("statuspoll", function (responseBody) {
          that.log('Entering statusemitter.on');
-
          that.log("Change of data detected! Sending new data to HomeKit.");
         
+        
          var info = JSON.parse(responseBody);
-          that.log(info);
          var temperature = parseFloat(info.temperature);
          var humidity = parseFloat(info.humidity);
+          that.log("Values", that.temperature, temperature, that.humidity, humidity);
          if (temperature != 85 && temperature != 85.0 && temperature != 85.00 && temperature != -127.00 && humidity != -127) {
          that.temperature = temperature;
          that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
