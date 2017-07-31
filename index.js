@@ -85,8 +85,9 @@ function AdvancedHttpTemperatureHumidity(log, config) {
      statusemitter.on("statuspoll", function (responseBody) {
       
          that.log("Change of data detected! Sending new data to HomeKit.");
-         
+        
          var info = JSON.parse(responseBody);
+          that.log(info);
          var temperature = parseFloat(info.temperature);
          if (temperature != 85.0 && temperature != 85.00 && temperature != -127.00) {
          that.temperature = temperature;
