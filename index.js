@@ -43,9 +43,10 @@ function AdvancedHttpTemperatureHumidity(log, config) {
      that.httpRequest(that.url, "", "GET", that.username, that.password, that.sendimmediately, function (error, response, responseBody) {
 
             if (error) {
-                that.log('Get Temperature failed: %s', error.message);
+                that.log('Get Temperature statusemitter failed: %s', error.message);
                 that.iserror = 1;
                 callback(error);
+                that.log('Leaving Error-if');
                 
             } else {
                 //that.log('Get JSON in Auto-Update succeeded!');
@@ -85,6 +86,7 @@ function AdvancedHttpTemperatureHumidity(log, config) {
         }
     
      statusemitter.on("statuspoll", function (responseBody) {
+         that.log('Entering statusemitter');
          if (that.iserror == 1) {
              that.iserror=0;
          }
