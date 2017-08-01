@@ -190,12 +190,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', function(event, context, callback) {
-    // This example code only throws error. 
-    //var error = new Error("something is wrong");
-    //callback(error);
-   
-};);
+                .on('get', function(event, context, callback){} );
             services.push(this.humidityService);
             
 
