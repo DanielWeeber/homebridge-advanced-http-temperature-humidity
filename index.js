@@ -167,6 +167,11 @@ AdvancedHttpTemperatureHumidity.prototype = {
             }
         }.bind(this));
     },
+    getStateHumidityold: function (callback) {
+        this.log('Get old Humidity manually');
+        callback(null, this.humidity);
+        
+    }
     
   
     identify: function (callback) {
