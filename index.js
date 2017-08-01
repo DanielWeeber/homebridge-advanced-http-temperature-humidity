@@ -125,11 +125,17 @@ AdvancedHttpTemperatureHumidity.prototype = {
             } else {
                 this.log('Get Temperature manually succeeded!');
                 var info = JSON.parse(responseBody);
+                
 
                 var temperature = parseFloat(info.temperature);
                 if (temperature != 85 && temperature != 85.0 && temperature != 85.00 && temperature != -127.00) {
                 this.temperature = temperature;
                 this.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
+                var humidity = parseFloat(info.humidity);
+                if (humidity != -127) {
+                    this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                    this.humidity = humidity;
+                    }
                 }
 
                 callback(null, temperature);
@@ -190,7 +196,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', function(event, context, callback){} );
+                .on('get', this.humidity.bind(this) );
             services.push(this.humidityService);
             
 
