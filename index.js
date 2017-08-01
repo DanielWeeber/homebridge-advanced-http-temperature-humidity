@@ -196,7 +196,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', this.humidity.bind(this) );
+                .on('get', this.humidity );
             services.push(this.humidityService);
             
 
