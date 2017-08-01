@@ -171,7 +171,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
         this.log('Get old Humidity manually');
         callback(null, this.humidity);
         
-    }
+    },
     
   
     identify: function (callback) {
@@ -201,7 +201,7 @@ AdvancedHttpTemperatureHumidity.prototype = {
             this.humidityService
                 .getCharacteristic(Characteristic.CurrentRelativeHumidity)
                 .setProps({minValue: 0, maxValue: 100})
-                .on('get', this.humidity );
+                .on('get', this.getStateHumidityold.bind(this) );
             services.push(this.humidityService);
             
 
