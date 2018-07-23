@@ -75,7 +75,6 @@ function AdvancedHttpTemperatureHumidity(log, config) {
           
          if (that.temperature != temperature || that.humidity != humidity) {
             if (temperature != 85 && temperature != 85.0 && temperature != 85.00 && temperature != -127.00 && humidity != -127) {
-                that.log("Change of data detected! Sending new data to HomeKit.");
                 that.temperature = temperature;
                 that.temperatureService.setCharacteristic(Characteristic.CurrentTemperature, temperature);
                 that.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
